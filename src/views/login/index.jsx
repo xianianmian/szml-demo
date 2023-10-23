@@ -3,16 +3,22 @@ import style from "./login.module.css"
 import { NavLink, Link, useNavigate ,Outlet} from 'react-router-dom';
 import { Button, Checkbox, Form, Input, Col, Row } from 'antd';
 
+import { useState } from 'react';
+
 const Login = () => {
   const navigate = useNavigate();
+  const [userName,setUserName] = useState('')
+  const [passWord,setPassWord] = useState('')
 
+  const registe = ()=>{
+    console.log(userName,passWord);
+  }
   const toHome = () => {
     console.log('back');
-    navigate('/homes', {
+    navigate('/home', {
       replace: false,
     });
   }
-
   return (
     <div className={style.login}>
       <Outlet ></Outlet>
@@ -21,7 +27,12 @@ const Login = () => {
           
           <Row className={style.arow}>
             <Col span={4}><p>用户名:</p></Col>
-            <Col span={20}><Input placeholder="Basic usage" /></Col>
+            <Col span={20}>
+              <Input 
+              placeholder="Basic usage" 
+              value={userName}
+              onChange={e => setUserName(e.target.value)}/>
+            </Col>
           </Row>
         </div>
         <br />
@@ -29,7 +40,12 @@ const Login = () => {
         <div>
           <Row className={style.arow}>
             <Col span={4}><p>密码:</p></Col>
-            <Col span={20}><Input placeholder="Basic password" /></Col>
+            <Col span={20}>
+              <Input 
+              placeholder="Basic password"  
+              value={passWord}
+              onChange={e => setPassWord(e.target.value)}/>
+              </Col>
           </Row>
         </div>
         <br />
@@ -38,8 +54,8 @@ const Login = () => {
             <Button onClick={toHome}>登录</Button>
           </Col>
           <Col span={4} offset={6}>
-            <Link  to={'/homes/shop' } >
-               <Button >zhuce</Button>           
+            <Link  to={'/home/shop' } >
+               <Button onClick={registe}>注册</Button>           
             </Link>
           </Col>
         </Row>

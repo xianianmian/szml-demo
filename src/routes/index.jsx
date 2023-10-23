@@ -2,15 +2,17 @@ import { Navigate } from 'react-router-dom';
 
 import Login from '../views/login';
 import Shop from '../views/shop/';
-import LayoutPage from '../views/layou';
+import LandingPage from '../views/landing';
+import HomePage from '../views/home';
 import NotFound from '../views/notFund';
 
 const routes = [
   { path: '/', element: <Navigate to='/home' /> },
   { path: '/login', element: <Login /> },
+  { path: '/landing', element: <LandingPage /> },
   {
-    path: '/homes',
-    element: <LayoutPage />,
+    path: '/home',
+    element: <HomePage />,
     children: [
       { 
         path: 'shop', 
