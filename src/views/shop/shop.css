@@ -1,0 +1,12 @@
+.shop {
+  background-color: #f9f8f6;
+}
+.shop .shopTop {
+  min-height: 200px;
+  max-height: 400px;
+  background-color: #b1c941;
+}
+.shop .shopBottom {
+  min-height: 250px;
+  background-color: yellow;
+}

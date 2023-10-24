@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-
-import { Col, Row ,Button,Card} from 'antd';
+import tupian from './R-C.jpg'
+import { Col, Row ,Button,Card, Avatar} from 'antd';
 import { NavLink, Link, useNavigate ,Outlet} from 'react-router-dom';
 import  './landing.css'
-import {
-  TaobaoOutlined
-} from '@ant-design/icons';
+
 
 const LandingPage =()=>  {
   const navigate = useNavigate();
@@ -15,13 +13,18 @@ const LandingPage =()=>  {
       replace: false,
     });
   }
+    const { Meta } = Card;
     return ( 
     <div>
       <div className='layout'>
         <div className="header">
           <div className="headerleft">
           <Row>
-            <Col span={4}><TaobaoOutlined/></Col>
+            <Col span={4}>
+                <div>
+                    <img src="2.png" alt=""></img>    
+                </div>
+            </Col>
             <Col span={6}>首页</Col>
             <Col span={6}>用户运营</Col>
           </Row>
@@ -30,23 +33,56 @@ const LandingPage =()=>  {
             <Button onClick={toHome}>登录/注册</Button>
           </div>
         </div>
-        <div className="img">随便找张图<img src="" alt="" /></div>
+        <div><img src={tupian} className="img" alt="" /></div>
+
         <div className="context">
         <Row>
-          <Col span={24}><h2>用户运营</h2></Col>
+            <Col push={11}>
+                <h2>用户运营</h2>
+            </Col>
         </Row>
         <Row>
-          <Col span={24}>去ant-desig看一下，把这个row标签的用法学一下
-          <p>https://ant.design/components/grid-cn  有不会的标签就看一下文档。这里的标签样式改不了就尝试用原生的html+css实现</p>
+          <Col push={10}>
+          <p>叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里</p>
           </Col>
         </Row>
-        <Row>
-          <Col span={8}><Card></Card></Col>
-          <Col span={8}><h2>用户运营</h2></Col>
-          <Col span={8}><h2>用户运营</h2></Col>
-        </Row>
+                    <Row>
+                        <Col span={8} push={4}>
+                            <Card
+                                style={{ width: 300 }}
+                            >
+                                <Meta
+                                    avatar={<Avatar src="" />}
+                                    title="渠道运营"
+                                    description="叽里呱啦叽里呱啦"
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={8} push={2}>
+                        <Card
+                                style={{ width: 300 }}
+                            >
+                                <Meta
+                                    avatar={<Avatar src="" />}
+                                    title="活跃运营"
+                                    description="叽里呱啦叽里呱啦"
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={8}>
+                        <Card
+                                style={{ width: 300 }}
+                            >
+                                <Meta
+                                    avatar={<Avatar src="" />}
+                                    title="支付宝会员"
+                                    description="叽里呱啦叽里呱啦"
+                                />
+                            </Card>
+                        </Col>
+                    </Row>
         </div>
-        <div className="footer">sdfsdfghjkl</div>
+        <div className="footer">叽里呱啦叽里呱啦</div>
       </div>
     </div>
     );
