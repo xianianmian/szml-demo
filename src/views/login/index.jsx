@@ -17,12 +17,13 @@ const Login = () => {
       userName:inpit1,
       password:input2
     }
-    api.post('http://localhost:9095/user/login',inputValue)
+    api.post('/user/login',inputValue)
     .then(res=>{
       console.log(res.data);
       if(res.data.success ){
         const token = res.data.data.token
-        localStorage.setItem("token", token);
+        console.log(token);
+        localStorage.setItem("qcby-token ", token);
         navigate('/home', {
           replace: false,
         });

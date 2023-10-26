@@ -5,7 +5,7 @@ import { ShopTwoTone, UserOutlined } from '@ant-design/icons';
 import { useState ,useEffect} from 'react';
 const isAuthenticated = () => {
   // 在这里检查本地存储中的 token 是否存在或有效
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('qcby-token');
   return !!token; // 返回 true 或 false
 };
 
@@ -18,7 +18,7 @@ const items = [
     key: 'shop',
   },
   {
-    label: '其它',
+    label: '商品详情',
     key: 'other',
   },
 ];
@@ -39,11 +39,11 @@ const dropDwonItems = [
 const HomePage = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate('/login');
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     navigate('/login');
+  //   }
+  // }, [navigate]);
 
   const { token: { colorBgContainer }, } = theme.useToken();
 
@@ -73,9 +73,9 @@ const HomePage = () => {
             <Avatar size="small" icon={<UserOutlined />} />
           </Col>
           <Col span={8}>
-            <Dropdown menu={{ dropDwonItems }} placement="bottom" arrow>
+            {/* <Dropdown menu={{ dropDwonItems }} placement="bottom" arrow>
               <Button>账号信息</Button>
-            </Dropdown>
+            </Dropdown> */}
           </Col>
         </Row>
 

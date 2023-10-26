@@ -11,7 +11,7 @@ import TestPage from '../views/test';
 
 
 const routes = [
-  { path: '/', element: <Navigate to='/home' /> },
+  { path: '/', element: <Navigate to='/login' /> },
   { path: '/login', element: <Login /> },
   { path: '/test', element: <TestPage /> },
   { path: '/landing', element: <LandingPage /> },

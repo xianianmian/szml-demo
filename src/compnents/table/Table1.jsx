@@ -22,51 +22,7 @@ const columns = [
 ];
 
 const data = [
-  {
-    id: 1,
-    managerId: '1223455',
-    count: 50,
-    startTime: '2023-01-02',
-    endTime: "2023-03-04",
-    status: "审核完下线",
-    max: 100,
-  },
-  {
-    id: 2,
-    managerId: '1223455',
-    count: 50,
-    startTime: '2023-01-02',
-    endTime: "2023-03-04",
-    status: "审核完下线",
-    max: 100,
-  },
-  {
-    id: 3,
-    managerId: '1223455',
-    count: 50,
-    startTime: '2023-01-02',
-    endTime: "2023-03-04",
-    status: "审核完下线",
-    max: 100,
-  },
-  {
-    id: 4,
-    managerId: '1223455',
-    count: 50,
-    startTime: '2023-01-02',
-    endTime: "2023-03-04",
-    status: "审核完下线",
-    max: 100,
-  },
-  {
-    id: 1,
-    managerId: '1223455',
-    count: 50,
-    startTime: '2023-01-02',
-    endTime: "2023-03-04",
-    status: "审核完下线",
-    max: 100,
-  },
+  
 ];
 
 const   TestOne = () => {
