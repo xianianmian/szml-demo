@@ -8,6 +8,8 @@ import NotFound from '../views/notFund';
 import OtherPage from '../views/other';
 import TestPage from '../views/test';
 
+
+
 const routes = [
   { path: '/', element: <Navigate to='/home' /> },
   { path: '/login', element: <Login /> },

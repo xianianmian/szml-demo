@@ -49,6 +49,7 @@ const LandingPage =()=>  {
                     <Row>
                         <Col span={8} push={4}>
                             <Card
+                                hoverable={true}
                                 style={{ width: 300 }}
                             >
                                 <Meta
@@ -60,6 +61,7 @@ const LandingPage =()=>  {
                         </Col>
                         <Col span={8} push={2}>
                         <Card
+                                hoverable={true}
                                 style={{ width: 300 }}
                             >
                                 <Meta
@@ -71,6 +73,7 @@ const LandingPage =()=>  {
                         </Col>
                         <Col span={8}>
                         <Card
+                                hoverable={true}
                                 style={{ width: 300 }}
                             >
                                 <Meta
@@ -82,7 +85,7 @@ const LandingPage =()=>  {
                         </Col>
                     </Row>
         </div>
-        <div className="footer">叽里呱啦叽里呱啦</div>
+        <div className="footer"><p>www.com</p></div>
       </div>
     </div>
     );

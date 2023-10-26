@@ -1,75 +1,43 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-const TestPage = () => <Table columns={columns} dataSource={data} />;
-export default TestPage;
+import axios from 'axios';
+import { useState } from 'react';
+const TestPage = () => {
+  const [formData, setFormData] = useState({
+    userName: 'dar',
+    password: '123456',
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // 防止默认提交行为
+    console.log(formData);
+    axios.post('http://localhost:9095/user/login', formData,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then(response => {
+        console.log(response);
+        // 处理成功响应
+      })
+      .catch(error => {
+        console.log(error);
+        // 处理错误响应
+      });
+  };
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="userName" value={formData.userName} onChange={handleChange} />
+      <input type="password" name="password" value={formData.password} onChange={handleChange} />
+      {/* <textarea name="message" value={formData.message} onChange={handleChange}></textarea> */}
+      <button type="submit">提交</button>
+    </form>
+  );
+}
+export default TestPage

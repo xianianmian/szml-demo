@@ -2,8 +2,12 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Menu, theme, Button, Col, Row, Dropdown, Avatar } from 'antd';
 import { ShopTwoTone, UserOutlined } from '@ant-design/icons';
-import { useState } from 'react';
-
+import { useState ,useEffect} from 'react';
+const isAuthenticated = () => {
+  // 在这里检查本地存储中的 token 是否存在或有效
+  const token = localStorage.getItem('token');
+  return !!token; // 返回 true 或 false
+};
 
 const { Header, Content, Sider } = Layout;
 
@@ -33,8 +37,15 @@ const dropDwonItems = [
   },
 ];
 const HomePage = () => {
-  const { token: { colorBgContainer }, } = theme.useToken();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  const { token: { colorBgContainer }, } = theme.useToken();
 
   const toPath = (e) => {
     console.log('click ', e);
