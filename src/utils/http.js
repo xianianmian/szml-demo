@@ -1,7 +1,8 @@
 import axios from 'axios';
+const baseURL= 'http://localhost:9095'
 
 const api = axios.create({
-  baseURL: 'http://localhost:9095', // 设置 API 的基本 URL
+  baseURL: baseURL, // 设置 API 的基本 URL
   headers: {
     'Content-Type': 'application/json'
   }

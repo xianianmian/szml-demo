@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './shop.css'
-import { Button, Col, Form, Input, Row, Select, Space, theme, Tag, DatePicker, Modal, Table, Radio } from 'antd';
+import { Button, Col, Form, Input, Row, Select, Space, theme, Tag, DatePicker, Modal, Table, Radio ,ConfigProvider} from 'antd';
 import api from '../../utils/http'
 import moment from 'moment';
+import axios from 'axios';//可以替代api，但路由要写完整
 //redux
 // import { configureStore, createSlice } from '@reduxjs/toolkit';
-
+// axios.get('http://localhost:9096/',{
+//   headers: {
+//     'qcby-token': localStorage.getItem('qcby-token ')
+//   }
+// })
+//   .then(res=>{
+//     console.log(res);
+//   }).catch(err=>{
+//     console.log(err);
+//   })
 
 
 const { Option } = Select;
@@ -19,7 +29,7 @@ const isAuthenticated = () => {
 };
 
 //条件查询组件
-const AdvancedSearchForm = () => {
+const AdvancedSearchForm = ( {onValueChange} ) => {
   const navigate = useNavigate();
 
   const { token } = theme.useToken();
@@ -43,10 +53,12 @@ const AdvancedSearchForm = () => {
     api.get('/good/findone/'+formData.roleID)
     .then(res=>{
       console.log(res);
-      tableData(res.data.data)
+      // tableData(res.data.data)
+      onValueChange(res.data.data)
     })
   };
 
+  const [forceRender, setForceRender] = useState(false);
   const resetForm = ()=>{
     form.resetFields();
   }
@@ -157,6 +169,15 @@ const AddShopForm = (props) => {
   const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
+  const submitNew = ()=>{
+    // setFormData(Object.assign(formData,{createrId:11,goodId:11}))
+    api.post('good/addgood',formData)
+    .then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
   return (
     <div>
       <Form form={form}
@@ -164,14 +185,38 @@ const AddShopForm = (props) => {
         style={{ maxWidth: 600, }}
       >
         <Form.Item
-          name={`roleID`}
+          name={`managerId`}
           label={`权益ID`}
           rules={[{ required: true, message: '请输入', },]} >
-          <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, roleID: e.target.value })} />
+          <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, managerId: e.target.value })} />
+        </Form.Item>
+        <Form.Item
+          name={`createrId`}
+          label={`createrId`}
+          rules={[{ required: true, message: '请输入', },]} >
+          <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, createrId: e.target.value })} />
+        </Form.Item>
+        <Form.Item
+          name={`goodId`}
+          label={`goodId`}
+          rules={[{ required: true, message: '请输入', },]} >
+          <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, goodId: e.target.value })} />
+        </Form.Item>
+        <Form.Item
+          name={`max`}
+          label={`库存`}
+          rules={[
+            {
+              required: true,
+              message: '请输入',
+            },
+          ]}
+        >
+          <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, max: e.target.value })} />
         </Form.Item>
         <Form.Item
           name={`count`}
-          label={`数量`}
+          label={`count`}
           rules={[
             {
               required: true,
@@ -182,8 +227,8 @@ const AddShopForm = (props) => {
           <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, count: e.target.value })} />
         </Form.Item>
         <Form.Item
-          name={`goodsStatus`}
-          label={`商品状态`}
+          name={`status`}
+          label={`状态`}
           rules={[
             {
               required: true,
@@ -191,9 +236,11 @@ const AddShopForm = (props) => {
             },
           ]}
         >
-          <Select onChange={(value) => setFormData({ ...formData, goodsStatus: value })}>
-            <Option value="1">suib</Option>
-            <Option value="2">abababa</Option>
+          <Select onChange={(value) => setFormData({ ...formData, status: value })}>
+            <Option value="0">审批完下线</Option>
+            <Option value="1">上线</Option>
+            <Option value="2">未审批下线</Option>
+            <Option value="3">草稿</Option>
           </Select>
         </Form.Item>
         <Form.Item
@@ -208,26 +255,31 @@ const AddShopForm = (props) => {
         >
           <DatePicker onChange={(date, dateString) => setFormData({ ...formData, endTime: dateString })} />
         </Form.Item>
+        <Form.Item
+          name={`startTime`}
+          label={`开始时间`}
+          rules={[
+            {
+              required: true,
+              message: '请输入',
+            },
+          ]}
+        >
+          <DatePicker onChange={(date, dateString) => setFormData({ ...formData, startTime: dateString })} />
+        </Form.Item>
+        <Button onClick={submitNew}>提交</Button>
       </Form>
     </div>
   )
 }
 //表格组件
-const TestOne = (props) => {
-  const {chaxunData} = props
-
-
+const TestOne = ({value}) => {
+  console.log(value,'value');
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState(value);
   const [initData, setInitData] = useState([])
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   const handleViewClick = (record) => {
     // setIsModalOpen(true);
     
@@ -235,12 +287,21 @@ const TestOne = (props) => {
     console.log(record);
     navigate('../other', { state: { id: record.id } });
   }
+  //9096
   const idchaxun = (e) =>{
     api.get('/good/findone'+e)
     .then(res=>{
       console.log(res);
+    }).catch(err =>{
+      console.log(err);
     })
   }
+
+  useEffect(()=>{
+    console.log(value,'ss');
+    setTableData(value)
+  },[value])
+  
   const columns = [
     { title: '权益ID', dataIndex: 'managerId', key: 'managerId' },
     { title: '库存', dataIndex: 'max', key: 'max' },
@@ -254,7 +315,7 @@ const TestOne = (props) => {
       render: (_, record) => (
         <Space size="middle">
           <Button size="min" onClick={() => handleViewClick(record)} type='primary'>查看</Button>
-          {/* <Button size="min" onClick={idchaxun}>删除</Button> */}
+          <Button size="min" onClick={idchaxun}>删除</Button>
         </Space>
       ),
     },
@@ -263,7 +324,7 @@ const TestOne = (props) => {
 
 
   const getTableData = () => {
-    api.get('http://localhost:9095/good/findall')
+    api.get('/good/findall')
       .then(res => {
         // console.log(res.data.data);
         setTableData(res.data.data)
@@ -276,23 +337,22 @@ const TestOne = (props) => {
   return (
     <div>
       <Table columns={columns} dataSource={tableData} />
-      <Modal title="详细信息" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="详细信息" open={isModalOpen} >
         <AddShopForm initData={initData}></AddShopForm>
       </Modal>
+      {/* <div>onOk={handleOk} onCancel={handleCancel}</div> */}
     </div>
   )
 };
 
 function ShopPage() {
   const { token } = theme.useToken();
-  const listStyle = {
-    lineHeight: '200px',
-    textAlign: 'center',
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    marginTop: 16,
-  };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [value, setValue] = useState('');
+
+  const handleValueChange = (newValue) => {
+    setValue(newValue);
+  };
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -303,12 +363,25 @@ function ShopPage() {
     setIsModalOpen(false);
   };
 
+  const ceshi = ()=>{
+    axios.get('http://localhost:9096/',{
+      headers: {
+        'qcby-token': localStorage.getItem('qcby-token ')
+      }
+    })
+      .then(res=>{
+        console.log(res);
+      }).catch(err=>{
+        console.log(err);
+      })
+  }
+
   return (
     <div className="shop">
       <div className="shopTop">
         <Row>
           <Col span={24}>
-            <AdvancedSearchForm />
+            <AdvancedSearchForm  value={value} onValueChange={handleValueChange} />
           </Col>
         </Row>
       </div>
@@ -320,12 +393,15 @@ function ShopPage() {
         <br />
         <Row>
           <Col span={24}>
-            <TestOne></TestOne>
+            <TestOne value={value}></TestOne>
           </Col>
         </Row>
-        <Modal title="新增信息" open={isModalOpen}  onCancel={handleCancel}>
+        <ConfigProvider>
+        <Modal title="新增信息" open={isModalOpen}  onCancel={handleCancel} footer={[]}>
           <AddShopForm></AddShopForm>
         </Modal>
+        </ConfigProvider>
+        {/* <Button onClick={ceshi}>财务室</Button> */}
       </div>
 
     </div>

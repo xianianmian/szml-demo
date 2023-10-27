@@ -67,15 +67,12 @@ const HomePage = () => {
             <Avatar size="small" icon={<UserOutlined />} />
           </Col>
           <Col span={8}>
+          <Button onClick={()=>{navigate('../loign',{replace:false})}}>退出</Button>
             {/* <Dropdown menu={{ dropDwonItems }} placement="bottom" arrow>
               <Button>账号信息</Button>
             </Dropdown> */}
           </Col>
         </Row>
-
-
-
-
       </Header>
       <Layout>
         <Sider width={200} style={{ background: colorBgContainer, }}>

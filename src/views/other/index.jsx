@@ -106,21 +106,21 @@ const OtherPage = ()=>{
     <div>
       <h2>基本信息</h2>
       <Row>
-        <Col span={8}>商品名称：{detailFormData.id}</Col>
-        <Col span={8}>权限类型：{detailFormData.updateTime}</Col>
-        <Col span={8}>描述信息</Col>
+        <Col span={8}>商品名称：{detailFormData.goodDescribe}</Col>
+        <Col span={8}>城市ID:{detailFormData.cityId}</Col>
+        <Col span={8}>count:{detailFormData.count}</Col>
       </Row>
       <br />
       <Row>
-        <Col span={8}>富文本</Col>
-        <Col span={8}>类目</Col>
-        <Col span={8}>服务保障</Col>
+        <Col span={8}>保修时间：{detailFormData.goodProtect}</Col>
+        <Col span={8}>商品ID：{detailFormData.goodId}</Col>
+        <Col span={8}>状态：{detailFormData.status}</Col>
       </Row>
       <br />
       <Row>
-        <Col span={8}>兑换限制</Col>
-        <Col span={8}>创建时间</Col>
-        <Col span={8}>col-8</Col>
+        <Col span={8}>跟新时间：{detailFormData.updateTime}</Col>
+        <Col span={8}>创建时间:{detailFormData.createTime}</Col>
+        <Col span={8}>结束时间：{detailFormData.endTime}</Col>
       </Row>
       <br />
       <div>

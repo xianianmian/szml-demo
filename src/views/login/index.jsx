@@ -35,6 +35,9 @@ const Login = () => {
       console.log(err);
     })
   }
+  const toLandin = ()=>{
+    navigate('../landing',{replace:false})
+  }
   return (
     <div className={style.login}>
       {contextHolder}
@@ -75,7 +78,7 @@ const Login = () => {
             <Button onClick={toHome}>登录</Button>
           </Col>
           <Col span={4} offset={6}>
-            <Button >注册</Button>
+            <Button onClick={toLandin}>返回</Button>
           </Col>
           <Col span={8} offset={20}>
             <a className={style.click}>忘记密码？</a>
