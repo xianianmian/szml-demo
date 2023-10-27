@@ -4,6 +4,9 @@ import './shop.css'
 import { Button, Col, Form, Input, Row, Select, Space, theme, Tag, DatePicker, Modal, Table, Radio } from 'antd';
 import api from '../../utils/http'
 import moment from 'moment';
+//redux
+// import { configureStore, createSlice } from '@reduxjs/toolkit';
+
 
 
 const { Option } = Select;
@@ -19,16 +22,8 @@ const isAuthenticated = () => {
 const AdvancedSearchForm = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isAuthenticated()) {
-  //     navigate('/login');
-  //   }
-  // }, [navigate]);
-
   const { token } = theme.useToken();
   const [form] = Form.useForm();
-  const [expand, setExpand] = useState(false);
-  
   const formStyle = { maxWidth: 'none', background: token.colorFillAlter, borderRadius: token.borderRadiusLG, padding: 24, };
   const [formDataInit,setFormDataInit] = useState( {
     roleID: '1',
@@ -38,15 +33,21 @@ const AdvancedSearchForm = () => {
     endTime: moment('2023-10-31', 'YYYY-MM-DD'), 
   })
   const [formData, setFormData] = useState({});
+
+  const [tableData,setTableData] = useState({})
+
   const handleSubmit = () => {
     // 处理或发送表单数据
     console.log(formData);
+    //一个查询——————要求重置表格数据
+    api.get('/good/findone/'+formData.roleID)
+    .then(res=>{
+      console.log(res);
+      tableData(res.data.data)
+    })
   };
 
   const resetForm = ()=>{
-    console.log('reset');
-    // setFormDataInit({})
-    // setFormData({})
     form.resetFields();
   }
 
@@ -72,7 +73,7 @@ const AdvancedSearchForm = () => {
               },
             ]}
           >
-            <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, goodsName: e.target.value })} />
+            <Input placeholder="placeholder" disabled onChange={(e) => setFormData({ ...formData, goodsName: e.target.value })} />
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -86,7 +87,7 @@ const AdvancedSearchForm = () => {
               },
             ]}
           >
-            <Input placeholder="placeholder" onChange={(e) => setFormData({ ...formData, role: e.target.value })} />
+            <Input placeholder="placeholder" disabled onChange={(e) => setFormData({ ...formData, role: e.target.value })} />
           </Form.Item>
         </Col>
       </Row>
@@ -102,7 +103,7 @@ const AdvancedSearchForm = () => {
               },
             ]}
           >
-            <Select onChange={(value) => setFormData({ ...formData, goodsStatus: value })}>
+            <Select disabled onChange={(value) => setFormData({ ...formData, goodsStatus: value })}>
               <Option value="1">suib</Option>
               <Option value="2">abababa</Option>
             </Select>
@@ -119,7 +120,7 @@ const AdvancedSearchForm = () => {
               },
             ]}
           >
-            <DatePicker onChange={(date, dateString) => setFormData({ ...formData, endTime: dateString })} />
+            <DatePicker disabled onChange={(date, dateString) => setFormData({ ...formData, endTime: dateString })} />
           </Form.Item>
         </Col>
 
@@ -212,7 +213,10 @@ const AddShopForm = (props) => {
   )
 }
 //表格组件
-const TestOne = () => {
+const TestOne = (props) => {
+  const {chaxunData} = props
+
+
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
@@ -249,8 +253,8 @@ const TestOne = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button size="min" onClick={() => handleViewClick(record)} type='primary'>编辑/查看</Button>
-          <Button size="min" onClick={idchaxun}>删除</Button>
+          <Button size="min" onClick={() => handleViewClick(record)} type='primary'>查看</Button>
+          {/* <Button size="min" onClick={idchaxun}>删除</Button> */}
         </Space>
       ),
     },
@@ -319,7 +323,7 @@ function ShopPage() {
             <TestOne></TestOne>
           </Col>
         </Row>
-        <Modal title="新增信息" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Modal title="新增信息" open={isModalOpen}  onCancel={handleCancel}>
           <AddShopForm></AddShopForm>
         </Modal>
       </div>

@@ -24,7 +24,7 @@ const Login = () => {
         const token = res.data.data.token
         console.log(token);
         localStorage.setItem("qcby-token ", token);
-        navigate('/home', {
+        navigate('/home/shop', {
           replace: false,
         });
       }else{

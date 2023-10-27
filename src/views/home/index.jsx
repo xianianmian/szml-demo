@@ -39,12 +39,6 @@ const dropDwonItems = [
 const HomePage = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isAuthenticated()) {
-  //     navigate('/login');
-  //   }
-  // }, [navigate]);
-
   const { token: { colorBgContainer }, } = theme.useToken();
 
   const toPath = (e) => {
