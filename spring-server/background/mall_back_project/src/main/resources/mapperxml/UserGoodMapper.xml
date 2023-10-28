@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserGoodMapper">
+  <resultMap id="BaseResultMap" type="com.domain.UserGood">
+    <!--@mbg.generated-->
+    <!--@Table user_good-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="manager_id" jdbcType="VARCHAR" property="managerId" />
+    <result column="creater_id" jdbcType="INTEGER" property="createrId" />
+    <result column="proxyer_id" jdbcType="VARCHAR" property="proxyerId" />
+    <result column="user_goodcol" jdbcType="VARCHAR" property="userGoodcol" />
+    <result column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="provider_id" jdbcType="VARCHAR" property="providerId" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="cash_price" jdbcType="VARCHAR" property="cashPrice" />
+    <result column="jifen_price" jdbcType="VARCHAR" property="jifenPrice" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="show_time" jdbcType="VARCHAR" property="showTime" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="max" jdbcType="VARCHAR" property="max" />
+    <result column="good_protect" jdbcType="VARCHAR" property="goodProtect" />
+    <result column="good_describe" jdbcType="VARCHAR" property="goodDescribe" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, manager_id, creater_id, proxyer_id, user_goodcol, good_id, provider_id, city_id, 
+    cash_price, jifen_price, `count`, create_time, update_time, show_time, start_time, 
+    end_time, `status`, `max`, good_protect, good_describe
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from user_good
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from user_good
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.domain.UserGood" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into user_good (manager_id, creater_id, proxyer_id, 
+      user_goodcol, good_id, provider_id, 
+      city_id, cash_price, jifen_price, 
+      `count`, create_time, update_time, 
+      show_time, start_time, end_time, 
+      `status`, `max`, good_protect, 
+      good_describe)
+    values (#{managerId,jdbcType=VARCHAR}, #{createrId,jdbcType=INTEGER}, #{proxyerId,jdbcType=VARCHAR}, 
+      #{userGoodcol,jdbcType=VARCHAR}, #{goodId,jdbcType=INTEGER}, #{providerId,jdbcType=VARCHAR}, 
+      #{cityId,jdbcType=VARCHAR}, #{cashPrice,jdbcType=VARCHAR}, #{jifenPrice,jdbcType=VARCHAR}, 
+      #{count,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{showTime,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{max,jdbcType=VARCHAR}, #{goodProtect,jdbcType=VARCHAR}, 
+      #{goodDescribe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.domain.UserGood" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into user_good
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="createrId != null">
+        creater_id,
+      </if>
+      <if test="proxyerId != null">
+        proxyer_id,
+      </if>
+      <if test="userGoodcol != null">
+        user_goodcol,
+      </if>
+      <if test="goodId != null">
+        good_id,
+      </if>
+      <if test="providerId != null">
+        provider_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="cashPrice != null">
+        cash_price,
+      </if>
+      <if test="jifenPrice != null">
+        jifen_price,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="showTime != null">
+        show_time,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="max != null">
+        `max`,
+      </if>
+      <if test="goodProtect != null">
+        good_protect,
+      </if>
+      <if test="goodDescribe != null">
+        good_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="managerId != null">
+        #{managerId,jdbcType=VARCHAR},
+      </if>
+      <if test="createrId != null">
+        #{createrId,jdbcType=INTEGER},
+      </if>
+      <if test="proxyerId != null">
+        #{proxyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="userGoodcol != null">
+        #{userGoodcol,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null">
+        #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="providerId != null">
+        #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cashPrice != null">
+        #{cashPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="jifenPrice != null">
+        #{jifenPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="showTime != null">
+        #{showTime,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null">
+        #{max,jdbcType=VARCHAR},
+      </if>
+      <if test="goodProtect != null">
+        #{goodProtect,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDescribe != null">
+        #{goodDescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.UserGood">
+    <!--@mbg.generated-->
+    update user_good
+    <set>
+      <if test="managerId != null">
+        manager_id = #{managerId,jdbcType=VARCHAR},
+      </if>
+      <if test="createrId != null">
+        creater_id = #{createrId,jdbcType=INTEGER},
+      </if>
+      <if test="proxyerId != null">
+        proxyer_id = #{proxyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="userGoodcol != null">
+        user_goodcol = #{userGoodcol,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null">
+        good_id = #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="providerId != null">
+        provider_id = #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cashPrice != null">
+        cash_price = #{cashPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="jifenPrice != null">
+        jifen_price = #{jifenPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="showTime != null">
+        show_time = #{showTime,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null">
+        `max` = #{max,jdbcType=VARCHAR},
+      </if>
+      <if test="goodProtect != null">
+        good_protect = #{goodProtect,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDescribe != null">
+        good_describe = #{goodDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.UserGood">
+    <!--@mbg.generated-->
+    update user_good
+    set manager_id = #{managerId,jdbcType=VARCHAR},
+      creater_id = #{createrId,jdbcType=INTEGER},
+      proxyer_id = #{proxyerId,jdbcType=VARCHAR},
+      user_goodcol = #{userGoodcol,jdbcType=VARCHAR},
+      good_id = #{goodId,jdbcType=INTEGER},
+      provider_id = #{providerId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      cash_price = #{cashPrice,jdbcType=VARCHAR},
+      jifen_price = #{jifenPrice,jdbcType=VARCHAR},
+      `count` = #{count,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      show_time = #{showTime,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      `max` = #{max,jdbcType=VARCHAR},
+      good_protect = #{goodProtect,jdbcType=VARCHAR},
+      good_describe = #{goodDescribe,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.domain.User">
+    <!--@mbg.generated-->
+    <!--@Table `user`-->
+    <id column="idt_user" jdbcType="INTEGER" property="idtUser" />
+    <result column="role" jdbcType="TINYINT" property="role" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="auto_label" jdbcType="TINYINT" property="autoLabel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    idt_user, `role`, phone, user_name, `password`, auto_label
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from `user`
+    where idt_user = #{idtUser,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from `user`
+    where idt_user = #{idtUser,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="idt_user" keyProperty="idtUser" parameterType="com.domain.User" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `user` (`role`, phone, user_name, 
+      `password`, auto_label)
+    values (#{role,jdbcType=TINYINT}, #{phone,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{autoLabel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="idt_user" keyProperty="idtUser" parameterType="com.domain.User" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `user`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="role != null">
+        `role`,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="autoLabel != null">
+        auto_label,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="role != null">
+        #{role,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="autoLabel != null">
+        #{autoLabel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.User">
+    <!--@mbg.generated-->
+    update `user`
+    <set>
+      <if test="role != null">
+        `role` = #{role,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="autoLabel != null">
+        auto_label = #{autoLabel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where idt_user = #{idtUser,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.User">
+    <!--@mbg.generated-->
+    update `user`
+    set `role` = #{role,jdbcType=TINYINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      auto_label = #{autoLabel,jdbcType=TINYINT}
+    where idt_user = #{idtUser,jdbcType=INTEGER}
+  </update>
+</mapper>

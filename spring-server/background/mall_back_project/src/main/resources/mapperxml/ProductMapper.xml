@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.domain.Product">
+    <!--@mbg.generated-->
+    <!--@Table product-->
+    <id column="catid" jdbcType="INTEGER" property="catid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_catid" jdbcType="INTEGER" property="parentCatid" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="imgUrl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="leaf" jdbcType="VARCHAR" property="leaf" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    catid, `name`, parent_catid, `level`, priority, `status`, imgUrl, leaf
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where catid = #{catid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from product
+    where catid = #{catid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="catid" keyProperty="catid" parameterType="com.domain.Product" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into product (`name`, parent_catid, `level`, 
+      priority, `status`, imgUrl, 
+      leaf
+      )
+    values (#{name,jdbcType=VARCHAR}, #{parentCatid,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{priority,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
+      #{leaf,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="catid" keyProperty="catid" parameterType="com.domain.Product" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="parentCatid != null">
+        parent_catid,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="imgurl != null">
+        imgUrl,
+      </if>
+      <if test="leaf != null">
+        leaf,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCatid != null">
+        #{parentCatid,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="leaf != null">
+        #{leaf,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.Product">
+    <!--@mbg.generated-->
+    update product
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCatid != null">
+        parent_catid = #{parentCatid,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgUrl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="leaf != null">
+        leaf = #{leaf,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where catid = #{catid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.Product">
+    <!--@mbg.generated-->
+    update product
+    set `name` = #{name,jdbcType=VARCHAR},
+      parent_catid = #{parentCatid,jdbcType=INTEGER},
+      `level` = #{level,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      leaf = #{leaf,jdbcType=VARCHAR},
+
+    where catid = #{catid,jdbcType=INTEGER}
+  </update>
+</mapper>

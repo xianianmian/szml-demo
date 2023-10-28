@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ProductConversionProcessMapper">
+  <resultMap id="BaseResultMap" type="com.domain.ProductConversionProcess">
+    <!--@mbg.generated-->
+    <!--@Table product_conversion_process-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="good_id" jdbcType="VARCHAR" property="goodId" />
+    <result column="option_time" jdbcType="VARCHAR" property="optionTime" />
+    <result column="optioner" jdbcType="VARCHAR" property="optioner" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `status`, good_id, option_time, optioner
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from product_conversion_process
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from product_conversion_process
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.domain.ProductConversionProcess" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into product_conversion_process (`status`, good_id, option_time, 
+      optioner)
+    values (#{status,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}, #{optionTime,jdbcType=VARCHAR}, 
+      #{optioner,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.domain.ProductConversionProcess" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into product_conversion_process
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="goodId != null">
+        good_id,
+      </if>
+      <if test="optionTime != null">
+        option_time,
+      </if>
+      <if test="optioner != null">
+        optioner,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null">
+        #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="optionTime != null">
+        #{optionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="optioner != null">
+        #{optioner,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.domain.ProductConversionProcess">
+    <!--@mbg.generated-->
+    update product_conversion_process
+    <set>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null">
+        good_id = #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="optionTime != null">
+        option_time = #{optionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="optioner != null">
+        optioner = #{optioner,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.domain.ProductConversionProcess">
+    <!--@mbg.generated-->
+    update product_conversion_process
+    set `status` = #{status,jdbcType=VARCHAR},
+      good_id = #{goodId,jdbcType=VARCHAR},
+      option_time = #{optionTime,jdbcType=VARCHAR},
+      optioner = #{optioner,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
