@@ -7,6 +7,8 @@ import HomePage from '../views/home';
 import NotFound from '../views/notFund';
 import OtherPage from '../views/other';
 import TestPage from '../views/test';
+import ShopDetail from '../views/shopdetail';
+import { ShopOutlined } from '@ant-design/icons';
 
 
 
@@ -26,6 +28,10 @@ const routes = [
       { 
         path: 'other', 
         element: <OtherPage />
+     },
+      { 
+        path: 'shopdetail', 
+        element: <ShopDetail />
      },
     ],
   },
