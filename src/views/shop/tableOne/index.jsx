@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Space, Modal, Table, Row,Col,Tag} from 'antd';
-import api from '../../../utils/http'
 import AddShopForm from '../AddShopForm'
-
+import {getAlldata} from '../../../api/shopapi/shopapi'
+import moment from 'moment'
 
 const TableOne = ({ value }) => {
   // console.log(value, 'value');
@@ -14,9 +14,12 @@ const TableOne = ({ value }) => {
   const AddShopFormRef = useRef(null);
 
   const handleViewClick = (record) => {
+    console.log(record,'ss');
     setInitData(record)
-    console.log(record);
-    navigate('../shopdetail', { state: { id: record.id } })
+    navigate('../shopdetail', { 
+      state: { id: record.id } ,
+      replace:false
+    })
   }
 
   const openModal = () => {
@@ -26,18 +29,16 @@ const TableOne = ({ value }) => {
     console.log('这里触发了');
     setIsModalOpen(false)
   };
-
-  useEffect(() => {
-    setTableData(value)
-  }, [value])
-
   const columns = [
-    { title: '权益ID', dataIndex: 'managerId', key: 'managerId' },
-    { title: '库存', dataIndex: 'max', key: 'max' },
-    { title: 'count', dataIndex: 'count', key: 'count' },
+    { title: '用户ID', dataIndex: 'createrId', key: 'createrId' },
+    { title: '特权ID', dataIndex: 'proxyerId', key: 'proxyerId' },
+    { title: '供应商ID', dataIndex: 'providerId', key: 'providerId' },
+    { title: '最大库存', dataIndex: 'max', key: 'max' },
+    { title: '管理者ID', dataIndex: 'managerId', key: 'managerId' },
+    { title: '现有数量', dataIndex: 'count', key: 'count' },
     { title: 'startTime', dataIndex: 'startTime', key: 'startTime' },
     { title: 'endTime', dataIndex: 'endTime', key: 'endTime' },
-    { title: '状态', dataIndex: 'status', key: 'status' },
+    { title: '商品状态', dataIndex: 'status', key: 'status' },
     {
       title: '操作',
       key: 'action',
@@ -51,15 +52,26 @@ const TableOne = ({ value }) => {
   ];
 
   const getTableData = () => {
-    api.get('/good/findall')
-      .then(res => {
-        console.log('我刷新了');
-        setTableData(res.data.data)
-      }).catch(err => {
-        console.log(err);
-      })
+    getAlldata().then(res=>{
+      console.log(res,'我刷新了');
+      const resData = res.data
+      resData.forEach((element,index) => {
+        //格式化指定时间
+        element.startTime = moment(element.startTime).format('YYYY-MM-DD');
+        element.updateTime = moment(element.updateTime).format('YYYY-MM-DD');
+        element.endTime = moment(element.endTime).format('YYYY-MM-DD');
+      });
+        setTableData(resData)
+    })
   }
-  useEffect(() => { getTableData() }, [])
+  useEffect(() => { 
+    if(value != []){
+      console.log('我先这里');
+      setTableData(value)
+    }
+    getTableData() 
+    
+  }, [value])
 
   return (
     <div>

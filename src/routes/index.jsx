@@ -8,13 +8,12 @@ import NotFound from '../views/notFund';
 import OtherPage from '../views/other';
 import TestPage from '../views/test';
 import ShopDetail from '../views/shopdetail';
+import Registe from '../views/registe/registe';
 import { ShopOutlined } from '@ant-design/icons';
-
-
-
 const routes = [
   { path: '/', element: <Navigate to='/landing' /> },
   { path: '/login', element: <Login /> },
+  { path: '/registe', element: <Registe /> },
   { path: '/test', element: <TestPage /> },
   { path: '/landing', element: <LandingPage /> },
   {

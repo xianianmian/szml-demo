@@ -19,4 +19,18 @@ api.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+// 响应拦截器
+api.interceptors.response.use(res => {
+  // 未设置状态码则默认成功状态
+  const code = res.data.code || 200;
+  // 获取错误信息
+
+  return Promise.resolve(res.data)
+},
+error => {
+  
+  return Promise.reject(error)
+}
+)
+
 export default api;

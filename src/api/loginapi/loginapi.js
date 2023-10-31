@@ -1,10 +1,11 @@
-// import {get,post} from '../../utils/http'
+import api from '../../utils/http'
 
-//  function apiLogin(url,data){
-//   return post({
-//     url,
-//     data
-//   })
-//  }
-
-//  export default apiLogin
+function Loginapi(userName,password){
+  const data = {userName,password}
+  return api({
+    url:'/user/login',
+    method:'POST',
+    data:data
+  })
+}
+export default Loginapi

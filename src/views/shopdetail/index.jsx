@@ -1,105 +1,90 @@
 import React, { useState, useEffect } from 'react';
-import {Row,Col} from 'antd'
-import api from '../../utils/http';
+import { Row, Col } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { Button,  Table,  } from 'antd';
-
+import { Button, Table, } from 'antd';
+import { getDetailGoodConversion 
+  ,getDetailGoodInformation,
+  agreeSubmit,
+  editStage,
+  rejectSubmit,
+  goOnline
+} from '../../api/shopapi/shopdetail';
+import moment from 'moment'
 const isAuthenticated = () => {
   // 在这里检查本地存储中的 token 是否存在或有效
   const token = localStorage.getItem('qcby-token');
   return !!token; // 返回 true 或 false
 };
 
-const Atable = ()=>{
+const Atable = () => {
   const location = useLocation();
   const id = location.state?.id
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const columns = [
-    { title: 'ID', dataIndex: 'Id', key: 'Id' },
-    { title: '操作人', dataIndex: 'optioner', key: 'optioner' },
-    { title: 'optionTime', dataIndex: 'optionTime', key: 'optionTime' },
-    { title: '状态', dataIndex: 'status', key: 'status' },
-    { title: '商品Id', dataIndex: 'goodId', key: 'goodId' },
-  ];
+    { title: '权益ID', dataIndex: 'id', key: 'id' },
+    { title: '商品ID', dataIndex: 'goodId', key: 'goodId' },
+    { title: '操作时间', dataIndex: 'optionTime', key: 'optionTime' },
+    { title: '操作角色ID', dataIndex: 'optioner', key: 'optioner' },
+    { title: '商品状态', dataIndex: 'status', key: 'status' },
 
-  useEffect(()=>{
-    if(id){
-      api.get('/good/get_good_conversion/'+id)
-      .then(res=>{
-        console.log(res.data.data);
-        setTableData(res.data.data)
+   
+  ];
+  useEffect(() => {
+    if (id) {
+      getDetailGoodConversion(id).then(res=>{
+        console.log(res.data,'con');
+        const resData = res.data
+        resData.forEach((element,index) => {
+          element.status = element.status == '0' ? '通过' : '未通过'
+          element.optionTime = moment(element.optionTime).format('YYYY-MM-DD');
+        });
+        setTableData(resData)
       })
     }
-  },[])
-
-
+  }, [])
   return (
     <div>
       <Table columns={columns} dataSource={tableData} />
     </div>
   )
-
-
 }
 
 
-const ShopDetail = ()=>{
+const ShopDetail = () => {
   const navigate = useNavigate();
-  const location = useLocation();  const id = location.state?.id
-  const [detailFormData,setDetailFormData] = useState({})
+  const location = useLocation(); const id = location.state?.id
+  const [detailFormData, setDetailFormData] = useState({})
+  useEffect(() => {
+    if (id) {
+      getDetailGoodInformation(id).then(res=>{
+        console.log(res.data,'info');
+        const resData = res.data
 
-
-  useEffect(()=>{
-    if(id){
-          api.get('/good/get_good_information/'+id)
-    .then(res=>{
-      console.log(res.data.data);
-      setDetailFormData(res.data.data)
-    })
+          resData.createTime = moment(resData.createTime).format('YYYY-MM-DD');
+          resData.endTime = moment(resData.endTime).format('YYYY-MM-DD');
+          resData.showTime = moment(resData.showTime).format('YYYY-MM-DD');
+          resData.startTime = moment(resData.startTime).format('YYYY-MM-DD');
+          resData.updateTime = moment(resData.updateTime).format('YYYY-MM-DD');
+        setDetailFormData(resData)
+      })
     }
-  },[])
-  const shengpi = ()=>{
-
-    api.post('/good/agree_submit/'+id,)
-    .then(res=>{
-      console.log(res);
-    }).catch(err =>{
-      console.log(err);
-    })
+  }, [])
+  const shengpi = () => {
+    agreeSubmit(id).then(res=>console.log(res))
   }
-  const editFun = ()=>{
-    api.post('/good/edit_stage/'+id)
-    .then(res=>{
-      console.log(res);
-    }).catch(err =>{
-      console.log(err);
-    })
+  const editFun = () => {
+    editStage(id).then(res=>console.log(res))
   }
-  const shengpiTongGuo = ()=>{
-    api.post('/good/agree_submit/'+id)
-    .then(res=>{
-      console.log(res);
-    }).catch(err =>{
-      console.log(err);
-    })
+  const shengpiTongGuo = () => {
+    agreeSubmit(id).then(res=>console.log(res))
   }
-  const shengpiBohui = ()=>{
-    api.post('/good/reject_submit/'+id)
-    .then(res=>{
-      console.log(res);
-    }).catch(err =>{
-      console.log(err);
-    })
+  const shengpiBohui = () => {
+    rejectSubmit(id).then(res=>console.log(res))
   }
-  const shangxian = ()=>{
-    api.post('/good/go_online/'+id)
-    .then(res=>{
-      console.log(res);
-    }).catch(err =>{
-      console.log(err);
-    })
+  const shangxian = () => {
+    goOnline(id).then(res=>console.log(res))
   }
 
   return (

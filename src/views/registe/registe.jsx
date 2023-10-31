@@ -1,11 +1,11 @@
-import style from "./login.module.css"
+import style from "./registe.module.css"
 import { NavLink, Link, useNavigate, Outlet } from 'react-router-dom';
 import { Button, Checkbox, Form, Input, Col, Row, message } from 'antd';
 import React, { useState, useEffect } from 'react';
 import bj from "./bj.jpg"
 import Loginapi from '../../api/loginapi/loginapi'
 
-const Login = () => {
+const Registe = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage()
 
@@ -40,8 +40,8 @@ const Login = () => {
       <div className={style.form}>
         <div>
           <div className={style.title}>
-            <h1>登陆界面</h1>
-            <p className={style.xd}>平台登录画面</p>
+            <h1>注册界面</h1>
+            <p className={style.xd}>平台注册画面</p>
           </div>
           <Form 
           >
@@ -98,7 +98,7 @@ const Login = () => {
           <Row>
 
             <Col span={4} offset={6}>
-              <Button onClick={toHome}>登录</Button>
+              <Button onClick={toHome}>注册</Button>
             </Col>
             <Col span={4} offset={6}>
               <Button onClick={toLandin}>返回</Button>
@@ -116,4 +116,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default Registe;

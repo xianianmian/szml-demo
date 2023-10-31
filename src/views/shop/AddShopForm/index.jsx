@@ -1,8 +1,7 @@
 import React, { useState, useEffect ,useRef} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Button, Col, Form, Input, Row, Select,  DatePicker, Modal, message,  } from 'antd';
+import {addGood} from '../../../api/shopapi/shopapi'
 
-import { Button, Col, Form, Input, Row, Select, Space, theme, Tag, DatePicker, Modal, Table, Radio, ConfigProvider } from 'antd';
-import api from '../../../utils/http'
 
 const AddShopForm = (props) => {
   const { onFunc,onUpdate,isModalOpen } = props
@@ -13,14 +12,17 @@ const AddShopForm = (props) => {
   const [detailData, setDetailData] = useState(initData);
   const [formData, setFormData] = useState({});
   const submitNew = () => {
-    api.post('good/addgood', formData)
-      .then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
-    onUpdate()
-    onFunc()
+    console.log(formData.status,'ss');
+    addGood(formData).then(res=>{
+      console.log(res);
+      onUpdate()
+      onFunc()
+      message.success('提交成功')
+      //status有问题
+    }).catch(err=>{
+      message.error('提交失败')
+    })
+
   }
   return (
     <div>
@@ -88,10 +90,10 @@ const AddShopForm = (props) => {
           ]}
         >
           <Select onChange={(value) => setFormData({ ...formData, status: value })}>
-            <Option value="0">审批完下线</Option>
-            <Option value="1">上线</Option>
-            <Option value="2">未审批下线</Option>
-            <Option value="3">草稿</Option>
+            <Option value="审批完下线">审批完下线</Option>
+            <Option value="上线">上线</Option>
+            <Option value="未审批下线">未审批下线</Option>
+            <Option value="草稿">草稿</Option>
           </Select>
         </Form.Item>
         <Form.Item

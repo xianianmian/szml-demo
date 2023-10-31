@@ -1,8 +1,9 @@
 import React, { useState, useEffect ,useRef} from 'react';
-import { Button, Col, Form, Input, Row, Select, Space, theme, Tag, DatePicker, Modal, Table, Radio, ConfigProvider } from 'antd';
+import { Button, Col, Form, Input, Row, Select, Space, theme, Tag, DatePicker, Modal, Table, Radio, ConfigProvider, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../utils/http'
+// import api from '../../../utils/http'
 import moment from 'moment';
+import {getAlldata,getOneData} from '../../../api/shopapi/shopapi'
 
 
 const AdvancedSearchForm = ({ onValueChange }) => {
@@ -13,23 +14,26 @@ const AdvancedSearchForm = ({ onValueChange }) => {
   const formStyle = { maxWidth: 'none', background: token.colorFillAlter, borderRadius: token.borderRadiusLG, padding: 24, };
   const [formData, setFormData] = useState({});
 
-
   const handleSubmit = () => {
     // 处理或发送表单数据——这个id不明确
     console.log(formData,'fome');
-    api.get('/good/findone/' + formData.goodId)
-      .then(res => {
-        console.log(res);
-        onValueChange(res.data.data)
-      })
+    getOneData(formData.goodId).then(res=>{
+      if(res.data != null){
+        onValueChange(res.data)
+      }else{
+        message.warning("kong")
+      }
+    }).catch(err=>{
+      message.err(err)
+    })
   };
 
+  useEffect(()=>{
+    onValueChange([])
+  },[])
   const resetForm = () => {
-    api.get('/good/findall')
-    .then(res => {
-      onValueChange(res.data.data)
-    }).catch(err => {
-      console.log(err);
+    getAlldata().then(res=>{
+      onValueChange(res.data)
     })
     form.resetFields();
   }
