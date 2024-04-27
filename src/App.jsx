@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div>
       {/* <Login /> */}
-      <div>这是dev,我现在尝试推送到dev2分支上</div>
+      <div>这是dev,我现在尝试推送到dev2分支上，刚刚失败了一次</div>
       {elementRouter}
     </div>
   );
