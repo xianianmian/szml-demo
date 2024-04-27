@@ -10,7 +10,9 @@ const App = () => {
       <div>
         <p>sdfsfsdf</p>
         这是dev,我现在尝试推送到dev2分支上，刚刚失败了一次
-        <div>又尝试冲突</div>
+        <div>又
+          <p>sdfsdf</p>
+          突</div>
         <div>在世一次</div>
          </div>
       <div>尝试取消提交</div>
