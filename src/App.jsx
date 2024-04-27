@@ -7,7 +7,11 @@ const App = () => {
   return (
     <div>
       {/* <Login /> */}
-      <div>这是</div>
+      <div>
+        这是dev,我现在尝试推送到dev2分支上，刚刚失败了一次
+        <div>又尝试冲突</div>
+         </div>
+      <div>尝试取消提交</div>
       {elementRouter}
     </div>
   );
